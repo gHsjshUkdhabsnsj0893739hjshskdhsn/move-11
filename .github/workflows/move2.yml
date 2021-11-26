@@ -18,4 +18,4 @@ jobs:
         EOF
     - name: Rclone move
       run: |
-        rclone move copy1: paste: --drive-server-side-across-configs -P
+        rclone move copy2: paste: --drive-server-side-across-configs -P
