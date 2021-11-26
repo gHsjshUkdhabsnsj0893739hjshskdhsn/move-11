@@ -1,0 +1,21 @@
+name: rclone-move2
+on:
+  schedule:
+    - cron: 0 */6 * * *
+  workflow_dispatch:
+jobs:
+  rclone-moveProcess:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2.1.0
+    - name: Installing rclone
+      run: curl https://rclone.org/install.sh | sudo bash
+    - name: Inject rclone.conf
+      run: |
+        mkdir -p ~/.config/rclone/
+        cat >  ~/.config/rclone/rclone.conf  << EOF
+        ${{ secrets.move }}
+        EOF
+    - name: Rclone move
+      run: |
+        rclone move copy1: paste: --drive-server-side-across-configs -P
